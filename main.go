@@ -323,13 +323,11 @@ func main() {
 	r.HandleFunc("/customers", getCustomers).Methods("GET")
 	r.HandleFunc("/customers/{id}", getCustomer).Methods("GET")
 	r.HandleFunc("/customers", createCustomer).Methods("POST")
-	r.HandleFunc("/customers", updateCustomer).Methods("PUT")
+	r.HandleFunc("/customers/{id}", updateCustomer).Methods("PUT")
 	r.HandleFunc("/customers/{id}", deleteCustomer).Methods("DELETE")
 
 	//New
 	r.HandleFunc("/getcustomer", getPost).Methods("POST")
-	r.HandleFunc("/updateCustomer", getPut).Methods("PUT")
-	
 
 	// Start server
 	log.Fatal(http.ListenAndServe(":8080", r))
