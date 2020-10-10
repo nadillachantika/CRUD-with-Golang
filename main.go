@@ -156,10 +156,18 @@ func updateCustomer(w http.ResponseWriter, r *http.Request) {
 		params := mux.Vars(r)
 
 		newCompanyName := r.FormValue("CompanyName")
+		newContactName := r.FormValue("ContactName")
+		newAddress := r.FormValue("Address")
+		newCity := r.FormValue("City")
+		newRegion := r.FormValue("Region")
+		newPostalCode := r.FormValue("PostalCode")
+		newCountry := r.FormValue("Country")
+		newPhone := r.FormValue("Phone")
+		newFax := r.FormValue("Fax")
 
-		stmt, err := db.Prepare("UPDATE customers SET CompanyName = ? WHERE CustomerID = ?")
+		stmt, err := db.Prepare("UPDATE customers SET CompanyName = ?, ContactName = ? , Address = ? ,City = ? ,Region = ?, PostalCode = ? ,Country = ? ,Phone = ? ,Fax = ? WHERE CustomerID = ?")
 
-		_, err = stmt.Exec(newCompanyName, params["id"])
+		_, err = stmt.Exec(newCompanyName, newContactName, newAddress, newCity, newRegion, newPostalCode, newCountry, newPhone, newFax, params["id"])
 
 		if err != nil {
 			fmt.Fprintf(w, "Data not found or Request error")
@@ -308,7 +316,7 @@ func delCustomer(w http.ResponseWriter, r *http.Request) {
 
 // Main function
 func main() {
-
+	//user:password(ipadress)
 	db, err = sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/northwind")
 	if err != nil {
 		panic(err.Error())
