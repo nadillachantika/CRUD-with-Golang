@@ -164,10 +164,11 @@ func updateCustomer(w http.ResponseWriter, r *http.Request) {
 		newCountry := r.FormValue("Country")
 		newPhone := r.FormValue("Phone")
 		newFax := r.FormValue("Fax")
+		newContactTitle := r.FormValue("ContactTitle")
 
-		stmt, err := db.Prepare("UPDATE customers SET CompanyName = ?, ContactName = ? , Address = ? ,City = ? ,Region = ?, PostalCode = ? ,Country = ? ,Phone = ? ,Fax = ? WHERE CustomerID = ?")
+		stmt, err := db.Prepare("UPDATE customers SET ContactTitle =?  CompanyName = ?, ContactName = ? , Address = ? ,City = ? ,Region = ?, PostalCode = ? ,Country = ? ,Phone = ? ,Fax = ? WHERE CustomerID = ?")
 
-		_, err = stmt.Exec(newCompanyName, newContactName, newAddress, newCity, newRegion, newPostalCode, newCountry, newPhone, newFax, params["id"])
+		_, err = stmt.Exec(newCompanyName, newContactTitle, newContactName, newAddress, newCity, newRegion, newPostalCode, newCountry, newPhone, newFax, params["id"])
 
 		if err != nil {
 			fmt.Fprintf(w, "Data not found or Request error")
